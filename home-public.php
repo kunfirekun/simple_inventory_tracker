@@ -29,6 +29,10 @@
         <i class="ico">&#9737;</i>
         <i class="txt">Section C</i>
       </a>
+      <a href="logout.php">
+        <i class="ico">&#9737;</i>
+        <i class="txt">Log Out</i>
+      </a>
     </div>
 
     <!-- (B) MAIN -->
