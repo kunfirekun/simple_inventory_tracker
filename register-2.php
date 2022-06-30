@@ -22,8 +22,8 @@ function secure_random_string($length) {
  
 $rand_string=secure_random_string(10);
 // Define variables and initialize with empty values
-$username = $email = $password = $confirm_password = "";
-$username_err = $email_err = $password_err = $confirm_password_err = "";
+$username = $email = $phone = $nid = $role= $password = $confirm_password = "";
+$username_err = $email_err  = $phone_err  = $nid_err = $role_err = $password_err = $confirm_password_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -106,14 +106,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       } else{
           $email = $input_email;
       }
-
-    // Validate password
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter a password.";     
-    } elseif(strlen(trim($_POST["password"])) < 8){
-        $password_err = "Password must have atleast 8 characters.";
+      
+       // Validate National ID
+    if(empty(trim($_POST["nid"]))){
+        $nid_err = "Please enter a National Id.";     
+    } elseif(strlen(trim($_POST["nid"])) < 7){
+        $nid_err = "Password must have atleast 7 characters.";
     } else{
-        $password = trim($_POST["password"]);
+        $nid = trim($_POST["nid"]);
+    }
+ 
+    // Validate Phone
+    if(empty(trim($_POST["phone"]))){
+        $phone_err = "Please enter a Phone Number.";     
+    } elseif(strlen(trim($_POST["phone"])) < 10){
+        $phone_err = "Phone Number must have atleast 10 characters.";
+    } else{
+        $phone = trim($_POST["phone"]);
+    }
+       // Validate Role
+    $input_role = trim($_POST["role"]);
+    if(empty($input_role)){
+        $role_err = "Please enter a Role";     
+   
+    } else{
+        $role = $input_role;
     }
     
     // Validate confirm password
@@ -139,15 +156,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO consumers  (username,email, password,reg_date,confirm_code) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO consumers  (username,email,tel,national_id, password,reg_date,confirm_code,role) VALUES (?, ?, ?,?,?, ?, ?,?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssss", $param_username,$param_email, $param_password, $param_entry_time, $param_rand_string );
+            mysqli_stmt_bind_param($stmt, "ssssssss", $param_username,$param_email, $param_phone,$param_nid,$param_password, $param_entry_time, $param_rand_string,$param_role );
             
             // Set parameters
             $param_username = $username;
             $param_email=$email;
+             $param_phone=$phone;
+              $param_nid=$nid;
+               $param_role=$role;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
             $param_entry_time= $entry_time;
             $param_rand_string= $rand_string;
