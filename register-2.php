@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require_once "../../wazito/throughpass.php";
+require_once "config.php";
 
 function secure_random_string($length) {
     $random_string = '';
@@ -132,7 +132,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $role = $input_role;
     }
-    
+       // Validate password
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter a password.";     
+    } elseif(strlen(trim($_POST["password"])) < 8){
+        $password_err = "Password must have atleast 8 characters.";
+    } else{
+        $password = trim($_POST["password"]);
+    }
     // Validate confirm password
     if(empty(trim($_POST["confirm_password"]))){
         $confirm_password_err = "Please confirm password.";     
@@ -188,7 +195,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                header("location: check.php?e=$output");
+                header("location: login.php");
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
