@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require_once "../../wazito/throughpass.php";
+require_once "config.php";
 
 function secure_random_string($length) {
     $random_string = '';
