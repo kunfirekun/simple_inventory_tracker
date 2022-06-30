@@ -210,7 +210,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <label>Email</label>
                 <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
-            </div>   
+            </div>  
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" name="phone" class="form-control <?php echo (!empty($phone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $phone; ?>">
+                <span class="invalid-feedback"><?php echo $phone_err; ?></span>
+            </div> 
+            <div class="form-group">
+                <label>National Id</label>
+                <input type="text" name="nid" class="form-control <?php echo (!empty($nid_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $nid; ?>">
+                <span class="invalid-feedback"><?php echo $nid_err; ?></span>
+            </div>
             <div class="form-group">
                 <label>Role</label>
                 <select name="role"  class="form-control <?php echo (!empty($role_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $role; ?>">
