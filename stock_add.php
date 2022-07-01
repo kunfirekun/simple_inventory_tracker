@@ -209,7 +209,7 @@ $time=date("d.m.Y, h:i:sa");
                             <span class="invalid-feedback"><?php echo $handler_err;?></span>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
+                        <a href="stock.php" class="btn btn-secondary ml-2">Cancel</a>
                     </form>
                 </div>
    
