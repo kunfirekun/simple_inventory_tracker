@@ -7,8 +7,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
-?>
-<?php
+
 // Include config file
 require_once "config.php";
  
@@ -139,14 +138,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </style>
 </head>
 <body>
-    <h1 class="my-5">Hi, Administrator <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-    <h2 class="my-5">This is your stock monitoring and management page, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. </h2>
-    <div class="wrapper">
+<div class="wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="mt-5">Create Record</h2>
-                    <p>Please fill this form and submit to add complaint record to the database.</p>
+                <h1 class="my-5">Hi, Administrator <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+    <p >This is your stock monitoring and management page, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. </p>
+                    
+                    <p>Please fill this form and submit  a product record to the database.</p>
+                    <p>
+    <a href="order.php" class="btn btn-success">Make Order</a>
+    <a href="sales.php" class="btn btn-info">Check Sales</a>
+    <a href="stock.php" class="btn btn-danger" disable>Manage Stock</a>
+    </p>
+    <p><a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
+        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a></p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
                             <label>Name</label>
@@ -197,14 +203,9 @@ $time=date("d.m.Y, h:i:sa");
             </div>        
         </div>
     </div>
-    <p>
-    <a href="order.php" class="btn btn-success">Make Order</a>
-    <a href="sales.php" class="btn btn-info">Check Sales</a>
-    <a href="stock.php" class="btn btn-danger">Manage Stock</a>
-    </p>
-    <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-    </p>
+   
+    
+    
+   <br>
 </body>
 </html>
