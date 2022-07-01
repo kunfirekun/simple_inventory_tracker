@@ -164,8 +164,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     
                   
                     <p>
-
-    <a href="sales.php" class="btn btn-info">Make A Sale</a>
+<a href="order.php" class="btn btn-success">Make A Sale</a>
+    <a href="sales.php" class="btn btn-info">View Sales</a>
+    
     <a href="stock.php" class="btn btn-danger">Manage Stock</a>
    
     </p>
