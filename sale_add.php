@@ -235,6 +235,15 @@ $time=date("d.m.Y, h:i:sa");
                            
                         </div>
                         <div class="form-group">
+                            <label>Payment Method</label>
+                           <select name="pay" id="pay" class="form-control">
+      <option value="mpesa">mpesa</option>  
+      <option value="cash">cash</option>
+     
+     </select>
+                           
+                        </div>
+                        <div class="form-group">
                           
                             <input type="hidden" name="handler" class="form-control <?php echo (!empty($handler_err)) ? 'is-invalid' : ''; ?>" value="<?php echo htmlspecialchars($_SESSION["username"]); ?>">
                             <span class="invalid-feedback"><?php echo $handler_err;?></span>
