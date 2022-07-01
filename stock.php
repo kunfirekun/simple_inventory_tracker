@@ -124,18 +124,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Stock Checker</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <style>
-        body{ font: 14px sans-serif; text-align: center; }
-      
         .wrapper{
             width: 600px;
             margin: 0 auto;
         }
-    
+        table tr td:last-child{
+            width: 120px;
+        }
     </style>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+    </script>
 </head>
 <body>
 <div class="wrapper">
@@ -145,60 +155,67 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <h1 class="my-5">Hi, Administrator <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
     <p >This is your stock monitoring and management page, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. </p>
                     
-                    <p>Please fill this form and submit  a product record to the database.</p>
+                  
                     <p>
     <a href="order.php" class="btn btn-success">Make Order</a>
     <a href="sales.php" class="btn btn-info">Check Sales</a>
-    <a href="stock.php" class="btn btn-danger" disable>Manage Stock</a>
+   
     </p>
-    <p><a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a></p>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                            <span class="invalid-feedback"><?php echo $name_err;?></span>
-                        </div>
-                         <div class="form-group">
-                            <label>Bet Reference No</label>
-                            <input type="text" name="bet_ref" class="form-control <?php echo (!empty($bet_ref_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                            <span class="invalid-feedback"><?php echo $bet_ref_err;?></span>
-                        </div>
-                        <div class="form-group">
-                            <label>Complaint Details</label>
-                            <textarea name="complaint" class="form-control "></textarea>
-                        </div>
-                        <div class="form-group">
-                             <?php
-date_default_timezone_set("Africa/Nairobi");
-$time=date("d.m.Y, h:i:sa");
-?>
-                            
-                            <input type="hidden" name="entry_time" class="form-control " value="<?php echo $time; ?>">
-                            
-                        </div>
-                        <div class="form-group">
-                          
-                            <input type="hidden" name="resolved_time" class="form-control" value="update on resolution">
-                           
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Ticket Status</label>
-                           <select name="ticket_status" id="ticket_status" class="form-control">
-      <option value="Pending">Pending</option>  
-      <option value="Resolved">Resolved</option>
-     </select>
-                           
-                        </div>
-                        <div class="form-group">
-                            <label>Handler</label>
-                            <input type="text" name="handler" class="form-control <?php echo (!empty($handler_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $handler; ?>">
-                            <span class="invalid-feedback"><?php echo $handler_err;?></span>
-                        </div>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
-                    </form>
+     <div class="col-md-12">
+                    <div class="mt-5 mb-3 clearfix">
+                        <h2 class="pull-left">Add A Product</h2>
+                        <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Product</a>
+                    </div>
+                    <?php
+                    // Include config file
+                    require_once "config.php";
+                    
+                    // Attempt select query execution
+                    $sql = "SELECT * FROM employees";
+                    if($result = mysqli_query($link, $sql)){
+                        if(mysqli_num_rows($result) > 0){
+                            echo '<table class="table table-bordered table-striped">';
+                                echo "<thead>";
+                                    echo "<tr>";
+                                        echo "<th>#</th>";
+                                        echo "<th width='30%'>Name</th>";
+                                         echo "<th width='20%'>Price</th>";
+                                        echo "<th width='30%'>Description</th>";
+                                   
+                                        echo "<th width='20%'>Action</th>";
+                                    echo "</tr>";
+                                echo "</thead>";
+                                echo "<tbody>";
+                                while($row = mysqli_fetch_array($result)){
+                                    echo "<tr>";
+                                        echo "<td>" . $row['id'] . "</td>";
+                                        echo "<td>" . $row['name'] . "</td>";
+                                        echo "<td>" . $row['bet_ref'] . "</td>";
+                                        echo "<td>" . $row['complaint_details'] . "</td>";
+                                       
+                                        echo "<td>";
+                                            echo '<a href="read.php?id='. $row['id'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
+                                            echo '<a href="update.php?id='. $row['id'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                            echo '<a href="delete.php?id='. $row['id'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                        echo "</td>";
+                                    echo "</tr>";
+                                }
+                                echo "</tbody>";                            
+                            echo "</table>";
+                            // Free result set
+                            mysqli_free_result($result);
+                        } else{
+                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                        }
+                    } else{
+                        echo "Oops! Something went wrong. Please try again later.";
+                    }
+ 
+                    // Close connection
+                    mysqli_close($link);
+                    ?>
+                </div>
+                    
                 </div>
             </div>        
         </div>
@@ -207,5 +224,16 @@ $time=date("d.m.Y, h:i:sa");
     
     
    <br>
+   <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row" >
+              <p><a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
+        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a></p>
+            </div>  
+             
+        </div>
+        
+    </div>
+    
 </body>
 </html>
