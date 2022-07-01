@@ -21,7 +21,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </head>
 <body>
     <h1 class="my-5">Hi, Administrator <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-    <h2 class="my-5">This is your sales monitoring and management page. <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h2>
+    <h2 class="my-5">This is your sales monitoring and management page, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</h2>
     <p>
     <a href="order.php" class="btn btn-success">Make Order</a>
     <a href="sales.php" class="btn btn-info">Check Sales</a>
