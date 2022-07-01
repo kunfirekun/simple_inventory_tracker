@@ -172,19 +172,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
                          <div class="form-group">
                             <label>Price</label>
-                            <input type="text" name="bet_ref" class="form-control <?php echo (!empty($bet_ref_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
+                            <input type="text" name="bet_ref" class="form-control <?php echo (!empty($bet_ref_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $bet_ref; ?>">
                             <span class="invalid-feedback"><?php echo $bet_ref_err;?></span>
                         </div>
                         <div class="form-group">
                             <label>Drink / Beverage Details</label>
-                           <select name="ticket_status" id="ticket_status" class="form-control">
-      <option value="250ml">250 ml</option>  
-      <option value="500ml">500 ml</option>
-      <option value="750ml">750 ml</option>
-      <option value="1Ltr">1Ltr</option>
-      <option value="1.5Ltr">1.5Ltr</option>
-     </select>
-                           
+                            <textarea name="complaint" class="form-control "></textarea>
                         </div>
                         <div class="form-group">
                              <?php
@@ -216,7 +209,7 @@ $time=date("d.m.Y, h:i:sa");
                             <span class="invalid-feedback"><?php echo $handler_err;?></span>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="stock.php" class="btn btn-secondary ml-2">Cancel</a>
+                        <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
                     </form>
                 </div>
    
