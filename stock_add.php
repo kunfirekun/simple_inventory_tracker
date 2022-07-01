@@ -42,7 +42,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $complaint = $input_complaint;
     }
-    
+     // Validate Extras
+    $input_extras = trim($_POST["extras"]);
+    if(empty($input_extras)){
+        $extras_err = "Please enter Extras.";     
+   
+    } else{
+        $extras = $input_extras;
+    }
     
      // Validate entry time
     $input_entry_time = trim($_POST["entry_time"]);
@@ -86,16 +93,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($name_err) && empty($bet_ref_err) && empty($handler_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO employees (name, bet_ref, complaint_details, entry_time, resolved_time, ticket_status, handler) VALUES (?, ?, ? , ?, ?, ?, ?)";
+        $sql = "INSERT INTO employees (name, bet_ref, complaint_details,extras, entry_time, resolved_time, ticket_status, handler) VALUES (?, ?,?, ? , ?, ?, ?, ?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssssss", $param_name,$param_bet_ref, $param_complaint, $param_entry_time, $param_resolved_time, $param_ticket_status, $param_handler );
+            mysqli_stmt_bind_param($stmt, "ssssssss", $param_name,$param_bet_ref, $param_complaint,$param_extras, $param_entry_time, $param_resolved_time, $param_ticket_status, $param_handler );
             
             // Set parameters
             $param_name = $name;
             $param_bet_ref = $bet_ref;
             $param_complaint = $complaint;
+            $param_extras = $extras;
             $param_entry_time= $entry_time;
             $param_resolved_time = $resolved_time;
             $param_ticket_status = $ticket_status;
@@ -157,13 +165,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     
                   
                     <p>
-    <a href="order.php" class="btn btn-success">Make Order</a>
-    <a href="sales.php" class="btn btn-info">Check Sales</a>
+    <a href="order.php" class="btn btn-success">Make A Sale</a>
+    <a href="sales.php" class="btn btn-info">View Sales</a>
    
     </p>
     <div class="col-md-12">
                     <h2 class="mt-5">Create Record</h2>
-                    <p>Please fill this form and submit to add complaint record to the database.</p>
+                    <p>Add Your New Product Stock</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
                             <label>Drink / Beverage Name</label>
@@ -177,7 +185,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
                         <div class="form-group">
                             <label>Drink / Beverage Details</label>
-                            <textarea name="complaint" class="form-control "></textarea>
+                           <select name="complaint" id="complaint" class="form-control">
+                               <option value="100ml">100 ml</option> 
+      <option value="250ml">250 ml</option>  
+      <option value="300ml">300 ml</option>
+      <option value="350ml">350 ml</option>
+      <option value="500ml">500 ml</option>
+      <option value="750ml">750 ml</option>
+      <option value="1ltr">1 Ltr</option>
+      <option value="1.5ltr">1.5 Ltrs</option>
+      <option value="2.0ltr">2.0 Ltrs</option>
+     </select>
+                           
+                        </div>
+                        <div class="form-group">
+                          <label>Quantity</label>
+                            <input type="text" name="extras" class="form-control <?php echo (!empty($extras_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $extras; ?>">
+                           <span class="invalid-feedback"><?php echo $extras_err;?></span>
                         </div>
                         <div class="form-group">
                              <?php
@@ -198,18 +222,18 @@ $time=date("d.m.Y, h:i:sa");
                             <label>Drink / Beverage</label>
                            <select name="ticket_status" id="ticket_status" class="form-control">
       <option value="beer">Beer</option>  
-      <option value="whisky">Whisky</option>
+      <option value="spirits">Spirits</option>
       <option value="mixer">Mixer</option>
      </select>
                            
                         </div>
                         <div class="form-group">
                           
-                            <input type="hidden" name="handler" class="form-control <?php echo (!empty($handler_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $handler; ?>">
+                            <input type="hidden" name="handler" class="form-control <?php echo (!empty($handler_err)) ? 'is-invalid' : ''; ?>" value="<?php echo htmlspecialchars($_SESSION["username"]); ?>">
                             <span class="invalid-feedback"><?php echo $handler_err;?></span>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
+                        <a href="stock.php" class="btn btn-secondary ml-2">Cancel</a>
                     </form>
                 </div>
    
