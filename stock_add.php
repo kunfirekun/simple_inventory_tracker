@@ -177,7 +177,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
                         <div class="form-group">
                             <label>Drink / Beverage Details</label>
-                            <textarea name="complaint" class="form-control "></textarea>
+                           <select name="ticket_status" id="ticket_status" class="form-control">
+      <option value="250ml">250 ml</option>  
+      <option value="500ml">500 ml</option>
+      <option value="750ml">750 ml</option>
+      <option value="1Ltr">1Ltr</option>
+      <option value="1.5Ltr">1.5Ltr</option>
+     </select>
+                           
                         </div>
                         <div class="form-group">
                              <?php
