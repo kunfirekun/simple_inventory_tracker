@@ -213,7 +213,7 @@ $order_no = array_shift($pages);
                                          echo "<td>" . $row['extras'] . "</td>";
                                          echo "<td>" . $row['ticket_status'] . "</td>";
                                         echo "<td>";
-                                       echo'<a href="sales_add.php?id='. $row['id'] .'&&orderno='.$order_no.'&&name='. $row['name'] .'&&amount='. $row['bet_ref'] .'&&desc='. $row['complaint_details'] . '&&category='. $row['ticket_status'] .'" class="btn btn-success"><span class="fa fa-shopping cart"></span>Sell Item </a>';
+                                       echo'<a href="sales_add.php?id='. $row['id'] .'&&orderno='.$order_no.'&&name='. $row['name'] .'&&amount='. $row['bet_ref'] .'&&desc='. $row['complaint_details'] . '&&category='. $row['ticket_status'] .'" class="btn btn-success"><span class="fa fa-shopping cart"></span>Add to Cart</a>';
                                        
                                            
                                            
