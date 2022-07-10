@@ -99,7 +99,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($name_err) && empty($bet_ref_err) && empty($handler_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO employees (name, bet_ref, complaint_details,extras, entry_time, resolved_time, ticket_status, handler) VALUES (?, ?,?, ?,? , ?, ?, ?, ?)";
+        $sql = "INSERT INTO products (name, bet_ref, complaint_details,extras, entry_time, resolved_time, ticket_status, handler) VALUES (?, ?,?, ?,? , ?, ?, ?, ?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
