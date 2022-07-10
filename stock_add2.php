@@ -94,11 +94,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($name_err) && empty($bet_ref_err) && empty($handler_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO tblproduct (name, price,size,category,handler, stock) VALUES (?, ? , ?, ?, ?, ?)";
+        $sql = "INSERT INTO tblproduct (name, price,size,category,handler, stock, entry_time) VALUES (?, ? , ?, ?, ?, ?, ?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssssss", $param_name,$param_price,$param_size, $param_category,$param_handler, $param_stock );
+            mysqli_stmt_bind_param($stmt, "sssssss", $param_name,$param_price,$param_size, $param_category,$param_handler, $param_stock,  $param_entry_time );
             
             // Set parameters
             $param_name = $name;
@@ -107,6 +107,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_category = $ticket_status;
             $param_handler = $handler;
             $param_stock= $extras;
+            $param_entry_time= $entry_time;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
