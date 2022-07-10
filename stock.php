@@ -171,7 +171,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     require_once "config.php";
                     
                     // Attempt select query execution
-                    $sql = "SELECT * FROM products ORDER BY id DESC ";
+                    $sql = "SELECT * FROM tblproduct ORDER BY id DESC ";
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
                             echo '<table class="table table-bordered table-striped">';
@@ -190,8 +190,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
                                         echo "<td>" . $row['name'] . "</td>";
-                                        echo "<td>" . $row['bet_ref'] . "</td>";
-                                        echo "<td>" . $row['complaint_details'] . "</td>";
+                                        echo "<td>" . $row['price'] . "</td>";
+                                        echo "<td>" . $row['size'] . "</td>";
                                        
                                         echo "<td>";
                                             echo '<a href="read.php?id='. $row['id'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
