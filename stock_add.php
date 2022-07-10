@@ -1,15 +1,16 @@
 <?php
+// Include config file
+require_once "config.php";
 // Initialize the session
 session_start();
- 
+
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
 
-// Include config file
-require_once "config.php";
+
  
 // Define variables and initialize with empty values
 $name = $bet_ref = $handler = "";
@@ -93,21 +94,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($name_err) && empty($bet_ref_err) && empty($handler_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO products (name, bet_ref, complaint_details,extras, entry_time, resolved_time, ticket_status, handler) VALUES (?, ?,?, ? , ?, ?, ?, ?)";
+        $sql = "INSERT INTO tblproduct (name, price,size,category,handler, stock, entry_time) VALUES (?, ? , ?, ?, ?, ?, ?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssssssss", $param_name,$param_bet_ref, $param_complaint,$param_extras, $param_entry_time, $param_resolved_time, $param_ticket_status, $param_handler );
+            mysqli_stmt_bind_param($stmt, "sssssss", $param_name,$param_price,$param_size, $param_category,$param_handler, $param_stock,  $param_entry_time );
             
             // Set parameters
             $param_name = $name;
-            $param_bet_ref = $bet_ref;
-            $param_complaint = $complaint;
-            $param_extras = $extras;
-            $param_entry_time= $entry_time;
-            $param_resolved_time = $resolved_time;
-            $param_ticket_status = $ticket_status;
+            $param_price = $bet_ref;
+            $param_size = $complaint;
+            $param_category = $ticket_status;
             $param_handler = $handler;
+            $param_stock= $extras;
+            $param_entry_time= $entry_time;
+            
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Records created successfully. Redirect to landing page
