@@ -71,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         }
                     }
                 } elseif (mysqli_stmt_num_rows($stmt) == 0){
-                    $sql = "SELECT id, username, password FROM consumers WHERE username = ? AND role = 'consumer' ";
+                    $sql = "SELECT id, username, password FROM consumers WHERE username = ? AND role = 'moderator' ";
                        if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
