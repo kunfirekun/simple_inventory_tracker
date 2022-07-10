@@ -159,7 +159,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                <h1 class="my-5">Hi, Administrator <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+                <h1 class="my-5">Hi, Administrator <b><?php echo htmlspecialchars($_SESSION["username"]); ?>.</b></h1>
     <p >This is where you make a sale/ order , <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. </p>
                     
                   
@@ -172,13 +172,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </p>
      <div class="col-md-12">
                     <div class="mt-5 mb-3 clearfix">
-                        <h2 class="pull-left">Add A Product</h2>
-                        <a href="stock_add.php" class="btn btn-success pull-right"><i class="fa fa-shopping-cart"></i> Start A Sale</a>
+                        <h2 class="pull-left">Pick A Product</h2>
+                       
                     </div>
                     <?php
                     // Include config file
                     require_once "config.php";
                     
+                    // List numbers 1 to 20
+$pages = range(100000,999999);
+// Shuffle numbers
+shuffle($pages);
+// Get a page
+$order_no = array_shift($pages);
+
                     // Attempt select query execution
                     $sql = "SELECT * FROM employees";
                     if($result = mysqli_query($link, $sql)){
@@ -186,13 +193,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             echo '<table class="table table-bordered table-striped">';
                                 echo "<thead>";
                                     echo "<tr>";
-                                        echo "<th>#</th>";
+                                        echo "<th width='5%'>#</th>";
                                         echo "<th width='30%'>Name</th>";
-                                         echo "<th width='20%'>Price</th>";
+                                         echo "<th width='10%'>Price</th>";
                                         echo "<th width='10%'>Description</th>";
+                                   echo "<th width='10%'>Quanity</th>";
+                                  echo "<th width='%'>Category</th>";
                                   
-                                  echo "<th width='10%'>Quantity</th>";
-                                  echo "<th width='15%'>Category</th>";
                                         echo "<th width='25%'>Action</th>";
                                     echo "</tr>";
                                 echo "</thead>";
@@ -206,10 +213,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                          echo "<td>" . $row['extras'] . "</td>";
                                          echo "<td>" . $row['ticket_status'] . "</td>";
                                         echo "<td>";
-                                            echo '<a href="read.php?id='. $row['id'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-                                            echo '<a href="update.php?id='. $row['id'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                                            echo '<a href="delete.php?id='. $row['id'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-                                        echo "</td>";
+                                       echo'<a href="sales_add.php?id='. $row['id'] .'&&orderno='.$order_no.'&&name='. $row['name'] .'&&amount='. $row['bet_ref'] .'&&desc='. $row['complaint_details'] . '&&category='. $row['ticket_status'] .'" class="btn btn-success"><span class="fa fa-shopping cart"></span>Sell Item </a>';
+                                       
+                                           
+                                           
+                                            "</td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                            
